@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //abc
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 Route::post('forget-password', [\App\Http\Controllers\ForgetPasswordController::class, 'ForgetPasswordStore'])->name('ForgetPasswordPost');
 Route::post('reset-password/{token}', [\App\Http\Controllers\ForgetPasswordController::class, 'ResetPasswordStore'])->name('ResetPasswordPost');
 //Admin
@@ -32,9 +32,19 @@ Route::post('client/registration',[\App\Http\Controllers\Client\RegistrationCont
 
 //Client End
 
+//submit new Forms
+Route::post('form/photographer-releases', [\App\Http\Controllers\PhotographerReleaseController::class, 'store']);
+Route::post('form/debutante-minor-releases', [\App\Http\Controllers\DebutanteMinorReleaseController::class, 'store']);
+Route::post('form/debutante-releases', [\App\Http\Controllers\DebutanteReleaseController::class, 'store']);
+// end submit new Forms
 
 Route::middleware(['auth:api'])->group( function () {
 
+//new Forms
+Route::get('admin/get/photographer-releases', [\App\Http\Controllers\PhotographerReleaseController::class, 'index']);
+Route::get('admin/get/debutante-minor-releases', [\App\Http\Controllers\DebutanteMinorReleaseController::class, 'index']);
+Route::get('admin/get/debutante-releases', [\App\Http\Controllers\DebutanteReleaseController::class, 'index']);
+// end new Forms
 
 //    Route::post('admin/update/client/subscription/status',[\App\Http\Controllers\Admin\NewSubscriptionManageController::class,'update_status']);
     Route::get('admin/get/subscriptions/with/clients',[\App\Http\Controllers\Admin\NewSubscriptionManageController::class,'index']);
@@ -112,17 +122,17 @@ Route::post('client/add/artifact/donation',[\App\Http\Controllers\Client\Artifac
 
 
 Route::middleware(['auth:api'])->group( function () {
-Route::middleware(['Subscription-package'])->group( function () {
-    Route::post('client/update/profile',[\App\Http\Controllers\Client\ProfileController::class,'update']);
-    Route::get('client/view/profile',[\App\Http\Controllers\Client\ProfileController::class,'profile']);
-    Route::post('client/update/password',[\App\Http\Controllers\Client\ProfileController::class,'updatePassword']);
-    Route::get('client/get/subscription/details',[\App\Http\Controllers\Client\ProfileController::class,'subscription_details']);
+    Route::middleware(['Subscription-package'])->group( function () {
+        Route::post('client/update/profile',[\App\Http\Controllers\Client\ProfileController::class,'update']);
+        Route::get('client/view/profile',[\App\Http\Controllers\Client\ProfileController::class,'profile']);
+        Route::post('client/update/password',[\App\Http\Controllers\Client\ProfileController::class,'updatePassword']);
+        Route::get('client/get/subscription/details',[\App\Http\Controllers\Client\ProfileController::class,'subscription_details']);
 
-    Route::post('client/update/form',[\App\Http\Controllers\Client\InitiativeTwoController::class,'update']);
-    Route::delete('client/del/form/{id}',[\App\Http\Controllers\Client\InitiativeTwoController::class,'destroy']);
-    Route::get('client/get/form',[\App\Http\Controllers\Client\InitiativeTwoController::class,'index']);
+        Route::post('client/update/form',[\App\Http\Controllers\Client\InitiativeTwoController::class,'update']);
+        Route::delete('client/del/form/{id}',[\App\Http\Controllers\Client\InitiativeTwoController::class,'destroy']);
+        Route::get('client/get/form',[\App\Http\Controllers\Client\InitiativeTwoController::class,'index']);
 
-//    Route::get('client/check/subscription/status',[\App\Http\Controllers\Client\SubscriptionController::class,'checkSubscription']);
-});
+    //    Route::get('client/check/subscription/status',[\App\Http\Controllers\Client\SubscriptionController::class,'checkSubscription']);
+    });
 //
 });
