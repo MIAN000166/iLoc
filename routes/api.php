@@ -87,7 +87,7 @@ Route::get('admin/get/debutante-releases', [\App\Http\Controllers\DebutanteRelea
     Route::delete('admin/del/news/{id}',[\App\Http\Controllers\Admin\NewsController::class,'destroy']);
 
 
-
+ 
 
 
 //    Route::post('admin/change/user/status',[\App\Http\Controllers\Admin\UserController::class,'change_user_status']);
